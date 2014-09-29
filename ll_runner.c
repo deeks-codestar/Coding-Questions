@@ -20,6 +20,7 @@ int main()
 	print_list(head);
 	insert_sort(&head);
 	print_list(head);
+	
 	printf("\nThe popped element is %d",pop(&head));
 	print_list(head);
 	insert_nth(&head,5,0);
@@ -27,7 +28,20 @@ int main()
 	insert_nth(&head,6,5);
 	print_list(head);
 	insert_sort(&head);
+	int x = pop(&head);
+	x = pop(&head);
+	x = pop(&head);
+	x = pop(&head);
+	x = pop(&head);
+	x = pop(&head);
+//	x = pop(&head);
+
 	print_list(head);
+	struct node* front = NULL;
+	struct node *back = NULL;
+	front_back_split(head, &front, &back);
+	print_list(front);
+	print_list(back);
 	delete_list(&head);
 	print_list(head);
 	return 0;

@@ -191,7 +191,24 @@ void append(struct node **a, struct node **b)
 
 void front_back_split(struct node* source, struct node** front_ref, struct node** back_ref)
 {
-	
+	struct node *slow_ptr, *fast_ptr;
+
+	if(source == NULL)
+	{
+		printf("Split not possible as list is non empty");
+		return;
+	}	
+	slow_ptr = source;
+	fast_ptr = source;
+	while(fast_ptr != NULL && fast_ptr->next != NULL)
+	{
+		fast_ptr = fast_ptr->next->next;
+		slow_ptr = slow_ptr->next;
+	}
+	*front_ref = source;
+	*back_ref = slow_ptr->next;
+	slow_ptr->next = NULL;
+	return;
 }
 
 struct node* get_middle( struct node* head)
@@ -213,3 +230,42 @@ struct node* get_middle( struct node* head)
 	return slow_ptr;
 
 }
+
+void remove_duplicate(struct node *head)
+{
+	struct node *current, *free_node;
+	if(head == NULL)
+	{	
+		printf("/nFailure() Empty List- Cannot remove duplicates");
+		return;
+	}
+	current = head;
+	while( current!=NULL && current->next != NULL)
+	{
+		while(current->next!= NULL && current->next->data == current->data)
+		{
+			free_node = current->next;
+			current->next = current->next->next;
+			free(free_node);
+		}
+		
+		current = current->next;
+	}
+	return;
+}
+
+void reverse_list(struct node **head_ref)
+{
+	struct node *current = *head_ref;
+	struct node *prev = NULL;
+	struct node *next = NULL;
+
+	while(current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*head_ref = prev;
+}	
